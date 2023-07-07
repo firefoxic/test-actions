@@ -1,0 +1,16 @@
+{
+	"name": "test-actions",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"engines": {
+		"node": "^18.16.1"
+	},
+	"scripts": {
+		"start": "NODE_ENV=production ./index.js",
+		"test": "node --test"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}
