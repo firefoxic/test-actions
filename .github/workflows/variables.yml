@@ -27,6 +27,14 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      # Runs a single command using the runners shell
+      - name: Repo name
+        run: echo $REPO_NAME
+
+      # Runs a single command using the runners shell
+      - name: Is CI
+        run: echo $CI
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -42,16 +50,8 @@ jobs:
       - name: Install pnpm
         run: corepack enable && corepack prepare pnpm@latest --activate
 
-      # - name: Install dependencies
-        # run: pnpm i
+      - name: Install dependencies
+        run: pnpm i
 
       - name: Build project
         run: pnpm start
-
-      # Runs a single command using the runners shell
-      - name: Repo name
-        run: echo $REPO_NAME
-
-      # Runs a single command using the runners shell
-      - name: Is CI
-        run: echo $CI
