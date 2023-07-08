@@ -43,7 +43,7 @@ jobs:
       #   run: echo "DATA_JSON=$(jq -c . < package.json)" >> $GITHUB_ENV
 
       - name: Build project
-        run: echo `pnpm start` >> $GITHUB_ENV
+        run: echo "HELLO=`pnpm start`" >> $GITHUB_ENV
 
       - name: Привет, Мир!
-        run: echo $GITHUB_ENV
+        run: echo '${{ env.DATA_JSON }}'
