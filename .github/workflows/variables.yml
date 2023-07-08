@@ -43,4 +43,4 @@ jobs:
         run: pnpm start
 
       - name: Привет, Мир!
-        run: echo $HELLO
+        run: echo $GITHUB_ENV
