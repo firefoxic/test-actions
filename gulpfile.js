@@ -1,8 +1,9 @@
 export default function (done) {
-	// process.env.GITHUB_ENV.HELLO = `World`
-	console.info(process.env.NODE_ENV)
+	// process.env.HELLO = `World`
+	console.info(`Test`)
 	if (process.env.CI) {
-		console.info(`World`)
+		console.info(process.env.GITHUB_ENV = `${process.env.GITHUB_ENV}\nHELLO=World`)
 	}
+	console.info(process.env.GITHUB_ENV)
 	done()
 }
