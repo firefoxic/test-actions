@@ -39,11 +39,14 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
-      # - name: Get project data
-      #   run: echo "DATA_JSON=$(jq -c . < package.json)" >> $GITHUB_ENV
+      - name: Get project data
+        run: echo "DATA_JSON=$(jq -c . < package.json)" >> $GITHUB_ENV
 
       - name: Build project
         run: pnpm start
+
+      - name: Привет, данные!
+        run: echo '${{ env.DATA_JSON }}'
 
       - name: Привет, Мир!
         run: echo '${{ env.HELLO }}'
