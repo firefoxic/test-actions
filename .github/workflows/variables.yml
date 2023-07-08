@@ -39,6 +39,9 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
+      - name: Get project data
+        run: echo "DATA_JSON=$(jq -c . < package.json)" >> $GITHUB_ENV
+
       - name: Build project
         run: pnpm start
 
