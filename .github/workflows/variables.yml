@@ -9,18 +9,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      REPO_NAME: /${{ github.event.repository.name }}
-      ENV_FILE_PATH: $GITHUB_ENV
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Repo name
-        run: echo $REPO_NAME
-
-      - name: Is CI
-        run: echo $CI
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -34,19 +25,11 @@ jobs:
           key: cache-pnpm-${{ hashFiles('./pnpn-lock.yaml') }}
           restore-keys: cache-pnpm-
 
-      - name: Install pnpm
-        run: corepack enable && corepack prepare pnpm@latest --activate
-
       - name: Install dependencies
-        run: pnpm i
+        run: corepack enable && corepack prepare pnpm@latest --activate && pnpm i
 
-      - name: Build project
-        run: pnpm start
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-
-      - name: Привет, GitHub!
-        run: echo $GITHUB_ENV
+      - name: Run test
+        run: pnpm test
 
       - name: Привет, Мир!
         run: echo '${{ env.HELLO }}'
