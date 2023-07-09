@@ -39,17 +39,13 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
-      # - name: Get project data
-      #   run: echo "DATA_JSON=$(jq -c . < package.json)" >> $GITHUB_ENV
-
       - name: Build project
         run: pnpm start
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
       - name: Привет, GitHub!
         run: echo $GITHUB_ENV
-
-      # - name: Привет, данные!
-      #   run: echo '${{ env.DATA_JSON }}'
 
       - name: Привет, Мир!
         run: echo '${{ env.HELLO }}'
