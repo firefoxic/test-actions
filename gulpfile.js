@@ -1,4 +1,16 @@
-import { readFileSync, writeFileSync } from "node:fs"
+import { readFileSync, writeFileSync, rmSync } from "node:fs"
+import gulp from "gulp"
+
+const { src, dest, series } = gulp
+
+function createDouble () {
+	return src(`./gulpfile.js`)
+		.pipe(dest(`./dist/`))
+}
+
+function removeDist () {
+	rmSync(`./dist`, { force: true, recursive: true })
+}
 
 /**
  * Set CI environment variable for the GitHub environment file.
@@ -17,4 +29,8 @@ function setEnvVar (varName, varValue) {
 
 export default async function () {
 	setEnvVar(`HELLO`, `World`)
+	series(
+		removeDist,
+		createDouble,
+	)
 }
