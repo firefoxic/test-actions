@@ -31,5 +31,9 @@ jobs:
       - name: Run test
         run: pnpm test
 
-      - name: Привет, Мир!
-        run: echo $HELLO
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: $DIST
+          branch: gh-pages
+          single-commit: true

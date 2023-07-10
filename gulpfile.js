@@ -2,14 +2,15 @@ import { readFileSync, writeFileSync, rmSync } from "node:fs"
 import gulp from "gulp"
 
 const { src, dest, series } = gulp
+const DIST = `./dist/`
 
-function createDouble () {
-	return src(`./gulpfile.js`)
-		.pipe(dest(`./dist/`))
+export function createDouble () {
+	return src(`./src/*.html`)
+		.pipe(dest(DIST))
 }
 
-function removeDist () {
-	rmSync(`./dist`, { force: true, recursive: true })
+export async function removeDist () {
+	rmSync(DIST, { force: true, recursive: true })
 }
 
 /**
@@ -27,10 +28,10 @@ function setEnvVar (varName, varValue) {
 	}
 }
 
-export default async function () {
-	setEnvVar(`HELLO`, `World`)
+export default function (done) {
+	setEnvVar(`DIST`, DIST)
 	series(
 		removeDist,
 		createDouble,
-	)
+	)(done)
 }
