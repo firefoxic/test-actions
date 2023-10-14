@@ -1,5 +1,5 @@
 {
-	"name": "Testing",
+	"name": "Test",
 	"on": {
 		"push": {
 			"branches": [
@@ -43,7 +43,7 @@
 				},
 				{
 					"name": "Run tests",
-					"run": "pnpm lint"
+					"run": "pnpm test"
 				}
 			]
 		}
