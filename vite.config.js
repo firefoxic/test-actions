@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "node:fs"
+import { appendFileSync } from "node:fs"
 
 import { defineConfig } from "vite"
 import browserslistToEsbuild from "browserslist-to-esbuild"
@@ -30,7 +30,5 @@ export default defineConfig({
 function setEnvVar (varName, varValue) {
 	if (!process.env.CI) return
 
-	const envFilePath = process.env.GITHUB_ENV
-	const envFileContent = readFileSync(envFilePath, { encoding: `utf8` })
-	writeFileSync(envFilePath, `${envFileContent}\n${varName}=${varValue}`)
+	appendFileSync(process.env.GITHUB_ENV, `\n${varName}=${varValue}`)
 }
