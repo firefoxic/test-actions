@@ -36,7 +36,7 @@
 				},
 				{
 					"name": "Install dependencies",
-					"run": "corepack enable && corepack prepare pnpm@latest --activate && pnpm i"
+					"run": "corepack enable && pnpm i"
 				},
 				{
 					"name": "Build project",
