@@ -1,4 +1,5 @@
 import { appendFileSync } from "node:fs"
+import { normalize } from "node:path"
 
 /**
  * Get the path to the project root when deploying to GitHub Pages.
@@ -12,7 +13,11 @@ import { appendFileSync } from "node:fs"
 export function getProjectRoot () {
 	if (!process.env.CI) return `/`
 
-	return `/${process.env.REPO_NAME}/`
+	let path = normalize(`/${process.env.PROJECT_ROOT}/`)
+
+	console.log(path)
+
+	return path
 }
 
 /**
