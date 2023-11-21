@@ -56,8 +56,7 @@
 					"with": {
 						"folder": "${{ env.PATH_TO_DIST }}",
 						"branch": "gh-pages",
-						"target-folder": "${{ github.event.pull_request.number }}",
-						"single-commit": true
+						"target-folder": "${{ github.event.pull_request.number }}"
 					}
 				}
 			]
