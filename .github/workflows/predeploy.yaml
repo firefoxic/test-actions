@@ -47,7 +47,8 @@
 					"name": "Build project",
 					"run": "pnpm build",
 					"env": {
-						"PROJECT_ROOT": "/${{ github.event.repository.name }}/${{ github.event.pull_request.number }}/"
+						"REPO_NAME": "${{ github.event.repository.name }}",
+						"PR_NUMBER": "${{ github.event.pull_request.number }}"
 					}
 				},
 				{

@@ -13,11 +13,17 @@ import { normalize } from "node:path"
 export function getProjectRoot () {
 	if (!process.env.CI) return `/`
 
-	let path = normalize(`/${process.env.PROJECT_ROOT}/`)
+	let projectRoot = `/${process.env.REPO_NAME}/`
+	console.log(projectRoot)
 
-	console.log(path)
+	if (!process.env.PR_NUMBER) return projectRoot
 
-	return path
+	// let subDir = process.env.PR_NUMBER ? `./${process.env.PR_NUMBER}/` : `./`
+
+	projectRoot = `${projectRoot}${process.env.PR_NUMBER}/`
+	console.log(projectRoot)
+
+	return projectRoot
 }
 
 /**
