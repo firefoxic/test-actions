@@ -1,7 +1,8 @@
 import { defineConfig } from "vite"
 import browserslistToEsbuild from "browserslist-to-esbuild"
 
-import { getProjectRoot, setGitHubEnvVar } from "./.github/gh-utils.js"
+import { getProjectRoot } from "./.github/utils/getProjectRoot.js"
+import { setGitHubEnvVar } from "./.github/utils/setGitHubEnvVar.js"
 
 const PATH_TO_SOURCE = `./src`
 const PATH_TO_DIST = `./dist`

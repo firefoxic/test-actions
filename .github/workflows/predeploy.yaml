@@ -1,66 +1,51 @@
-{
-	"name": "Preparing for deployment",
-	"on": {
-		"push": {
-			"branches": [
-				"main"
-			]
-		},
-		"pull_request": {
-			"branches": [
-                "*"
-			]
-		}
-	},
-	"jobs": {
-		"predeploy": {
-			"name": "Predeploy",
-			"permissions": {
-				"contents": "write"
-			},
-			"runs-on": "ubuntu-latest",
-			"steps": [
-				{
-					"uses": "actions/checkout@v4"
-				},
-				{
-					"name": "Setup Node.js",
-					"uses": "actions/setup-node@v3",
-					"with": {
-						"node-version-file": "package.json"
-					}
-				},
-				{
-					"name": "Restore cache",
-					"uses": "actions/cache@v3",
-					"with": {
-						"path": "/home/runner/.local/share/pnpm/store/v3",
-						"key": "cache-pnpm-${{ hashFiles('./pnpn-lock.yaml') }}",
-						"restore-keys": "cache-pnpm-"
-					}
-				},
-				{
-					"name": "Install dependencies",
-					"run": "corepack enable && pnpm i"
-				},
-				{
-					"name": "Build project",
-					"run": "pnpm build",
-					"env": {
-						"REPO_NAME": "${{ github.event.repository.name }}",
-						"PR_NUMBER": "${{ github.event.pull_request.number }}"
-					}
-				},
-				{
-					"name": "Deploy",
-					"uses": "JamesIves/github-pages-deploy-action@v4",
-					"with": {
-						"folder": "${{ env.PATH_TO_DIST }}",
-						"branch": "gh-pages",
-						"target-folder": "${{ github.event.pull_request.number }}"
-					}
-				}
-			]
-		}
-	}
-}
+name: Deploy to GitHub-Pages
+
+on:
+  push:
+    branches:
+      - master
+  pull_request_target:
+    branches:
+      - '*'
+
+jobs:
+  deploy:
+    name: Deploy
+
+    permissions:
+      contents: write
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.local/share/pnpm/store/v3
+          key: cache-pnpm-${{ hashFiles('./package-lock.json') }}
+          restore-keys: cache-pnpm-
+
+      - name: Install dependencies
+        run: corepack enable && pnpm i
+
+      - name: Build project
+        run: pnpm build
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ${{ env.PATH_TO_DIST }}
+          branch: gh-pages
+          target-folder: ${{ github.event.pull_request.number }}

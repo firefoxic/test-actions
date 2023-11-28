@@ -9,7 +9,7 @@
 		"build": "vite build",
 		"preview": "vite build && vite preview",
 		"test": "node --test",
-		"pretest": "pnpm --silent lint",
+		"pretest": "pnpm lint",
 		"lint": "pnpm /^lint:/",
 		"lint:spaces": "ec",
 		"lint:styles": "stylelint src/css/**/*.css",
