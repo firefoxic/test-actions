@@ -21,6 +21,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: 'refs/pull/PULL_REQUEST_NUMBER/merge'
 
       - name: Setup Node
         uses: actions/setup-node@v4
