@@ -22,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: 'refs/pull/PULL_REQUEST_NUMBER/merge'
+          ref: 'refs/pull/${{ github.event.pull_request.number }}/merge'
 
       - name: Setup Node
         uses: actions/setup-node@v4
