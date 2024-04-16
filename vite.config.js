@@ -1,5 +1,5 @@
-import { defineConfig } from "vite"
 import browserslistToEsbuild from "browserslist-to-esbuild"
+import { defineConfig } from "vite"
 
 import { getProjectRoot } from "./.github/utils/getProjectRoot.js"
 import { setGitHubEnvVar } from "./.github/utils/setGitHubEnvVar.js"

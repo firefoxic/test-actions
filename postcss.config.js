@@ -5,7 +5,7 @@ export default function () {
 				filter: `**/*.svg`,
 				url: `inline`,
 			},
-			"autoprefixer": {},
+			"postcss-lightningcss": {},
 		},
 	}
 }

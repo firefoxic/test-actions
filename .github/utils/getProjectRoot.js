@@ -14,15 +14,9 @@ import { env } from "node:process"
  * @returns {string} The path to the project directory from the domain root if working in a GitHub CI environment. If not, returns `/`.
  */
 export function getProjectRoot () {
-	let projectRoot = `/`
+	if (!env.CI || !env.REPO_NAME) { return `/` }
 
-	if (!env.CI) return projectRoot
+	if (!env.PR_NUMBER) { return `/${env.REPO_NAME}/` }
 
-	projectRoot = `${projectRoot}${env.REPO_NAME}/`
-
-	if (!env.PR_NUMBER) return projectRoot
-
-	projectRoot = `${projectRoot}${env.PR_NUMBER}/`
-
-	return projectRoot
+	return `/${env.REPO_NAME}/${env.PR_NUMBER}/`
 }
