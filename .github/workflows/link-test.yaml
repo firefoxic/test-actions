@@ -1,0 +1,25 @@
+name: Hard link test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check:
+    name: link-test
+
+    runs-on: windows-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+
+      - name: Run file handling
+        run: node ./index.js
