@@ -39,8 +39,7 @@ jobs:
 
       - run: pnpm publish --access public
 
-      - name: Get latest tag
-        id: get_tag
+      - id: get_tag
         run: echo "tag=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
 
       - name: Create GitHub Release
