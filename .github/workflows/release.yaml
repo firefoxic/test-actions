@@ -38,9 +38,9 @@ jobs:
           fi
           echo "TAG_NAME=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
           cat << EOF >> $GITHUB_ENV
-          RELEASE_DESCRIPTION=$RELEASE_DESCRIPTION
+          RELEASE_DESCRIPTION=$(echo "$RELEASE_DESCRIPTION" | sed 's/## \[Unreleased\]//g')
           EOF
-          echo ${{ env.RELEASE_DESCRIPTION }}
+      - run: echo ${{ env.RELEASE_DESCRIPTION }}
       # echo "RELEASE_DESCRIPTION<<EOF" >> $GITHUB_ENV
       # echo "$RELEASE_DESCRIPTION" >> $GITHUB_ENV
       # echo "EOF" >> $GITHUB_ENV
