@@ -28,27 +28,26 @@ jobs:
       - run: |
           git config --global user.email "actions@users.noreply.github.com"
           git config --global user.name "GitHub Actions"
-          unreleasedSection=$(awk '/## \[Unreleased\]/{flag=1; next} /## \[/{flag=0} flag' ./CHANGELOG.md | sed '/^[[:space:]]*$/d')
-          if echo "$unreleasedSection" | grep -q '### Changed'; then
+          RELEASE_DESCRIPTION=$(awk '/## \[Unreleased\]/{flag=1; next} /## \[/{flag=0} flag' ./CHANGELOG.md | sed '/^[[:space:]]*$/d')
+          if echo "$RELEASE_DESCRIPTION" | grep -q '### Changed'; then
               pnpm version major
-          elif echo "$unreleasedSection" | grep -q '### Added'; then
+          elif echo "$RELEASE_DESCRIPTION" | grep -q '### Added'; then
               pnpm version minor
-          elif echo "$unreleasedSection" | grep -q '### Fixed'; then
+          elif echo "$RELEASE_DESCRIPTION" | grep -q '### Fixed'; then
               pnpm version patch
           fi
+          echo "RELEASE_DESCRIPTION=$RELEASE_DESCRIPTION" >> $GITHUB_ENV
+          echo "TAG_NAME=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
 
-      - run: pnpm publish --access public
-
-      - id: get_tag
-        run: tag=$(git describe --tags --abbrev=0)
+      # - run: pnpm publish --access public
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "$tag"
-          release_name: "Release $tag"
-          body: "$unreleasedSection"
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: "Release ${{ env.TAG_NAME }}"
+          body: ${{ env.RELEASE_DESCRIPTION }}
           draft: false
           prerelease: false
