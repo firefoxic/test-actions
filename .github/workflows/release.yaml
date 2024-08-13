@@ -36,8 +36,10 @@ jobs:
           elif echo "$RELEASE_DESCRIPTION" | grep -q '### Fixed'; then
               pnpm version patch
           fi
-          echo "RELEASE_DESCRIPTION=$RELEASE_DESCRIPTION" >> $GITHUB_ENV
           echo "TAG_NAME=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+          echo "UNRELEASED_SECTION<<EOF" >> $GITHUB_ENV
+          echo "$RELEASE_DESCRIPTION" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       # - run: pnpm publish --access public
 
