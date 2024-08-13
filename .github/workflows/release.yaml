@@ -37,7 +37,9 @@ jobs:
               pnpm version patch
           fi
           echo "TAG_NAME=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
-          echo "RELEASE_DESCRIPTION<<EOF $RELEASE_DESCRIPTION EOF" >> $GITHUB_ENV
+          echo "RELEASE_DESCRIPTION<<EOF" >> $GITHUB_ENV
+          echo "$RELEASE_DESCRIPTION" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       # - run: pnpm publish --access public
 
