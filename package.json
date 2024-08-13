@@ -1,10 +1,13 @@
 {
 	"name": "test-actions",
 	"private": true,
+	"version": "2.0.0",
 	"type": "module",
 	"license": "MIT",
 	"description": "",
 	"scripts": {
+		"version": "update-changelog",
+		"postversion": "git push --follow-tags",
 		"start": "vite dev",
 		"build": "vite build",
 		"preview": "vite build && vite preview",
@@ -16,8 +19,9 @@
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.9.0",
-		"@stylistic/eslint-plugin-js": "^2.6.2",
 		"@firefoxic/stylelint-config": "^3.0.0",
+		"@firefoxic/update-changelog": "^0.2.0",
+		"@stylistic/eslint-plugin-js": "^2.6.2",
 		"browserslist": "^4.23.3",
 		"browserslist-to-esbuild": "^2.1.1",
 		"eslint": "9.9.0",
