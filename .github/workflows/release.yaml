@@ -38,11 +38,7 @@ jobs:
           fi
           echo "TAG_NAME=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
           cat << EOF >> $GITHUB_ENV
-          RELEASE_DESCRIPTION=<<EOF
-          This is
-          a multiline
-          description
-          EOF
+          RELEASE_DESCRIPTION=$RELEASE_DESCRIPTION
           EOF
       # echo "RELEASE_DESCRIPTION<<EOF" >> $GITHUB_ENV
       # echo "$RELEASE_DESCRIPTION" >> $GITHUB_ENV
